@@ -1,7 +1,7 @@
 {
   "name": "emailsequencer",
   "version": "1.0.0",
-  "description": "",
+  "description": "A full-stack MERN application to visually create and schedule email sequences using React Flow, Agenda, and Nodemailer.",
   "homepage": "https://github.com/ramachandraprasad77/EmailSequencer#readme",
   "bugs": {
     "url": "https://github.com/ramachandraprasad77/EmailSequencer/issues"
