@@ -13,7 +13,7 @@ if (!mongoUri) {
 
 const agenda = new Agenda({
   db: {
-    address: mongoUri,
+    address: process.env.MONGO_URI,
     collection: "users",
   },
 });
@@ -46,6 +46,5 @@ const agendaReady = (async () => {
   await agenda.start();
   console.log(" Agenda Get started");
 })();
-agendaReady();
 
 export { agenda, agendaReady };
