@@ -8,7 +8,7 @@ import EmailSchedule from '../models/EmailSchedule.js';
 const mongoUri = process.env.MONGO_URI;
 
 if (!mongoUri) {
-  throw new Error("MONGO_URI is not defined! Please check your environment variables.");
+  throw new Error("MONGO_URI not defined! Please check your envt variables.");
 }
 
 const agenda = new Agenda({
@@ -36,15 +36,15 @@ agenda.define("send email", async (job) => {
       text: body,
     });
     await EmailSchedule.findByIdAndUpdate(emailId, { status: "sent" });
-    console.log(`✅ Email sent to ${email}`);
+    console.log(` Email sent to ${email}`);
   } catch (error) {
-    console.error("❌ Error sending email:", error);
+    console.error(" Error sending email:", error);
   }
 });
 
 const agendaReady = (async () => {
   await agenda.start();
-  console.log("✅ Agenda started");
+  console.log(" Agenda Get started");
 })();
 
 export { agenda, agendaReady };
