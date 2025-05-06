@@ -11,22 +11,29 @@ const Signup = () => {
     try {
       setLoading(true);
       setError("");
-
-     
+  
       const response = await axios.post("/auth/register", {
         name,
         email,
         password,
       });
-
-      if (response.status === 201) {
-       
-        console.log("Signup successful:", response.data);
+  
+      console.log("Response:", response.data);
+  
+      if (response.status === 201 && response.data.success) {
+        alert(response.data.message);
       } else {
         setError("Something went wrong. Please try again.");
       }
     } catch (err) {
-      setError("Something went wrong.");
+      if (err.response && err.response.status === 409) {
+        const errorMessage = err.response.data.error || "User already exists";
+        setError(errorMessage);
+        console.log("Error:", errorMessage); 
+      } else {
+        setError("Something went wrong.");
+        console.log("Error:", err);
+      }
     } finally {
       setLoading(false);
     }
