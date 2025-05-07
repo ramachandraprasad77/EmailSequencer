@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 3000;
 // Ensure database connection is successful before starting the server
 connectToDatabase().catch((error) => {
   console.error("❌ Database connection failed:", error.message);
-  process.exit(1); // Stop the server if DB connection fails
+  app.use((req, res) => res.status(500).json({ error: "Server unavailable" }));
 });
 
 if (process.env.NODE_ENV !== "production") {
