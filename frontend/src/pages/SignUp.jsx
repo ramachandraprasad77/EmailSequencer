@@ -12,7 +12,7 @@ const Signup = () => {
       setLoading(true);
       setError("");
   
-      const response = await axios.post("/auth/register", {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/auth/register`,  {
         name,
         email,
         password,
