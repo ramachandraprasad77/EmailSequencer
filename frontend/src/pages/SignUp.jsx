@@ -11,16 +11,17 @@ const Signup = () => {
     try {
       setLoading(true);
       setError("");
-  
+
+      // Ensure API base URL is correctly handled
       const API_BASE_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000";
-const response = await axios.post(`${API_BASE_URL}/auth/register`,  {
+      const response = await axios.post(`${API_BASE_URL}/auth/register`, {
         name,
         email,
         password,
       });
-  
+
       console.log("Response:", response.data);
-  
+
       if (response.status === 201 && response.data.success) {
         alert(response.data.message);
       } else {
@@ -30,7 +31,7 @@ const response = await axios.post(`${API_BASE_URL}/auth/register`,  {
       if (err.response && err.response.status === 409) {
         const errorMessage = err.response.data.error || "User already exists";
         setError(errorMessage);
-        console.log("Error:", errorMessage); 
+        console.log("Error:", errorMessage);
       } else {
         setError("Something went wrong.");
         console.log("Error:", err);
