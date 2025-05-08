@@ -16,15 +16,21 @@ const useAxios = () => {
     client.interceptors.response.use(
       (response) => response,
       (error) => {
-        if (error.response?.status === 401) {
-          console.warn("Unauthorized, redirecting...");
-          localStorage.removeItem("schedulerUserName");
-          window.location.href = "/signin";
-        }
-        return Promise.reject(error);
-      },
-    );
-
+          if (error.response?.status === 401) {
+              const errorMessage = error.response?.data?.error;
+  
+              if (errorMessage === "User not found") {
+                  console.warn("User does not exist. Preventing redirect.");
+                  return Promise.reject(error); // Prevents reload
+              }
+  
+              console.warn("Unauthorized, redirecting...");
+              localStorage.removeItem("authToken");
+              window.location.href = "/signin"; // Redirects only for actual unauthorized errors
+          }
+          return Promise.reject(error);
+      }
+  );
     return client;
   }, []);
 

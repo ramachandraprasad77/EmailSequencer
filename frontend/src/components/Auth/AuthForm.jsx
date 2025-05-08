@@ -15,11 +15,14 @@ const AuthForm = ({ type = "signin", onSubmit, loading, error }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    e.stopPropagation();
+    
     const payload = isSignup
-      ? formData
-      : { email: formData.email, password: formData.password };
+        ? formData
+        : { email: formData.email, password: formData.password };
+
     onSubmit(payload);
-  };
+};
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 bg-white p-6 rounded-xl shadow-md w-full max-w-md">

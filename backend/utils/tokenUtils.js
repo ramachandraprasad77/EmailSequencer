@@ -13,3 +13,5 @@ export const verifyToken = (token) => {
     return decoded;
   });
 };
+
+export default generateToken;

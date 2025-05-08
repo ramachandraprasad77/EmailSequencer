@@ -12,7 +12,8 @@ const Signup = () => {
       setLoading(true);
       setError("");
   
-      const response = await axios.post("/auth/register", {
+      const API_BASE_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000";
+const response = await axios.post(`${API_BASE_URL}/auth/register`,  {
         name,
         email,
         password,
