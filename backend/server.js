@@ -28,10 +28,10 @@ if (process.env.NODE_ENV !== "production") {
 import cors from "cors";
 
 app.use(cors({
-    origin: ["https://prasad-emailsequencer.netlify.app"], // ✅ Add your Netlify frontend URL
-    credentials: true, // ✅ Allows cookies and authentication headers
+    origin: ["https://prasad-emailsequencer.netlify.app"],
+    credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"], // ✅ Allow necessary headers
+    allowedHeaders: ["Content-Type", "Authorization"],
 }));
 app.use(express.json());
 app.use(cookieParser());
