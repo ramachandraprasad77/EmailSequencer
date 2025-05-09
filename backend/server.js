@@ -25,9 +25,13 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 // Middleware
+import cors from "cors";
+
 app.use(cors({
-  origin: process.env.CLIENT_URL?.split(",") || "*",
-  credentials: true,
+    origin: ["https://prasad-emailsequencer.netlify.app"], // ✅ Add your Netlify frontend URL
+    credentials: true, // ✅ Allows cookies and authentication headers
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"], // ✅ Allow necessary headers
 }));
 app.use(express.json());
 app.use(cookieParser());
