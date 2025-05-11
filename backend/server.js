@@ -16,7 +16,7 @@ connectToDatabase()
   .catch((error) => {
     console.error("❌ Database connection failed:", error.message);
     if (process.env.NODE_ENV !== "production") {
-      process.exit(1); // Only exit in non-production environments
+      console.warn("⚠️ Continuing server startup despite DB failure...")
     }
   });
 
