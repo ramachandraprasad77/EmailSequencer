@@ -9,34 +9,34 @@ const SignIn = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSignin = async ({ email, password }) => {
-    try {
-      setLoading(true);
-      setError("");
+const handleSignin = async (event) => {
+  event.preventDefault();  // ✅ Ensures event is handled properly
 
-      const response = await axios.post("/auth/login", { email, password });
+  try {
+    setLoading(true);
+    setError("");
 
-      console.log("Login Response:", response.data);
+    const response = await axios.post("/auth/login", { email, password });
 
-      if (response.status === 200 && response.data.success) {
-        localStorage.setItem("schedulerUserName", response.data.data.name);
-        console.log("Login successful:", response.data);
-        navigate("/"); // ✅ React Router navigation prevents reload
-      } else {
-        setError(response.data.error || "Invalid credentials.");
-      }
-    } catch (err) {
-      console.error("❌ Login Error:", err.response?.data || err.message);
-
-      if (err.response?.status === 401) {
-        setError(err.response?.data?.error || "Invalid credentials");
-      } else {
-        setError("Something went wrong.");
-      }
-    } finally {
-      setLoading(false);
+    if (response.status === 200 && response.data.success) {
+      localStorage.setItem("schedulerUserName", response.data.data.name);
+      console.log("Login successful:", response.data);
+      navigate("/"); // ✅ React Router navigation prevents reload
+    } else {
+      setError(response.data.error || "Invalid credentials.");
     }
-  };
+  } catch (err) {
+    console.error("❌ Login Error:", err.response?.data || err.message);
+
+    if (err.response?.status === 401) {
+      setError(err.response?.data?.error || "Invalid credentials"); // ✅ Proper error handling
+    } else {
+      setError("Something went wrong.");
+    }
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
