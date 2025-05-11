@@ -27,19 +27,30 @@ if (process.env.NODE_ENV !== "production") {
 // Middleware
 import cors from "cors";
 
+const allowedOrigins = [
+  "https://prasad-emailsequencer.netlify.app",
+  process.env.NODE_ENV !== "production" ? "http://localhost:3000" : null
+].filter(Boolean);
+
 app.use(cors({
-    origin: ["https://prasad-emailsequencer.netlify.app"],
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+  origin: allowedOrigins,
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 }));
+
 app.use(express.json());
 app.use(cookieParser());
 
 // Routes
 app.use("/auth", authRoutes);
-app.get("/health", (req, res) => {
-  res.status(200).json({ status: "✅ Server is healthy" });
+app.get("/health", async (req, res) => {
+  try {
+    await connectToDatabase(); // Ensures DB is accessible
+    res.status(200).json({ status: "✅ Server is healthy", db: "Connected" });
+  } catch (error) {
+    res.status(500).json({ status: "❌ Server has issues", db: "Failed" });
+  }
 });
 
 // Start Server
