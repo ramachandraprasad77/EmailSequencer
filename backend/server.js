@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import connectToDatabase from "./config/db.js";
 import authRoutes from "./routes/auth.routes.js";
 import dotenv from "dotenv";
+import emailRoutes from "./routes/email.routes.js";
 
 dotenv.config(); // Load environment variables early
 
@@ -39,6 +40,8 @@ app.use(cors({
 
 app.use(express.json());
 app.use(cookieParser());
+
+app.use("/email", emailRoutes);
 
 // Routes
 app.use("/auth", authRoutes);
