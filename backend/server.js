@@ -25,8 +25,6 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 // Middleware
-import cors from "cors";
-
 const allowedOrigins = [
   "https://prasad-emailsequencer.netlify.app",
   process.env.NODE_ENV !== "production" ? "http://localhost:3000" : null
