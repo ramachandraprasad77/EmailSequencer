@@ -1,6 +1,6 @@
 {
     "scripts": {
-        "start": "node server.js",
+        "start": "node --experimental-modules server.js",
         "dev": "nodemon server.js"
     },
     "type": "module",
